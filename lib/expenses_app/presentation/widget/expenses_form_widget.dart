@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:max_learn/expenses_app/domain/entities/category_model.dart';
+import 'package:max_learn/expenses_app/domain/entities/expenses_model.dart';
 import 'package:max_learn/expenses_app/utils/regex_app.dart';
 import 'package:max_learn/expenses_app/utils/third_library.dart';
 
 class ExpensesFormWidget extends StatefulWidget {
-  const ExpensesFormWidget({super.key});
+  final void Function(ExpensesModel) onTap;
+
+  const ExpensesFormWidget({
+    required this.onTap,
+    super.key});
 
   @override
   State<StatefulWidget> createState() => _ExpensesFormWidget();
@@ -42,6 +47,19 @@ class _ExpensesFormWidget extends State<ExpensesFormWidget> {
         });
       }
     });
+  }
+
+  void _handleSubmit(){
+
+    widget.onTap(
+      ExpensesModel(
+          title: _titleController.text,
+          amount: double.parse(_amountController.text),
+          date: selectedDateTime!,
+          category: selectedCategory ?? CategoryEnum.food
+      )
+    );
+    Navigator.of(context).pop();
   }
 
   @override
@@ -154,7 +172,7 @@ class _ExpensesFormWidget extends State<ExpensesFormWidget> {
                         ),
                         SizedBox(width: 8), // Space between buttons
                         ElevatedButton(
-                          onPressed: () {},
+                          onPressed:_handleSubmit,
                           child: Text("Save Expenses"),
                         ),
                       ],

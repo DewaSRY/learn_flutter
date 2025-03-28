@@ -3,13 +3,14 @@ import 'package:max_learn/expenses_app/domain/entities/category_model.dart';
 import 'package:max_learn/expenses_app/domain/entities/expenses_model.dart';
 import 'package:max_learn/expenses_app/utils/third_library.dart';
 
-
-
 class ExpensesItemWidget extends StatelessWidget {
   final ExpensesModel expenses;
   final Color surfaceTintColor;
 
-  const ExpensesItemWidget({required this.expenses, required this.surfaceTintColor, super.key});
+  const ExpensesItemWidget({
+    required this.expenses,
+    required this.surfaceTintColor,
+    super.key});
 
   String get _amount {
     return numberFormat.format(expenses.amount);
